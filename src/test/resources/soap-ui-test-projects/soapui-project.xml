@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="92889036-242e-4748-b89f-21d08b26eafb" activeEnvironment="Default" name="HelloWorldService" resourceRoot="${projectDir}" soapui-version="5.6.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="5ea905b4-5fd7-401c-98c0-0bf44492502c" wsaVersion="NONE" name="HelloSoapBinding" type="wsdl" bindingName="{http://www.examples.com}HelloSoapBinding" soapVersion="1_1" anonymous="optional" definition="../../../main/resources/wsdls/HelloWorldService.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/Users/matthiasschnell/workspaces/RHB/middleware/integration-test1/src/main/resources/wsdls/HelloWorldService.wsdl"><con:part><con:url>file:/Users/matthiasschnell/workspaces/RHB/middleware/integration-test1/src/main/resources/wsdls/HelloWorldService.wsdl</con:url><con:content><![CDATA[<definitions name="HelloService" targetNamespace="http://www.examples.com" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.examples.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <!--SCHEMAS-->
+  <types>
+    <xsd:schema targetNamespace="http://www.examples.com">
+      <!--elements-->
+      <xsd:element name="sayHelloRequest" type="tns:sayHelloRequestType"/>
+      <xsd:element name="sayHelloResponse" type="tns:sayHelloResponseType"/>
+      <xsd:element name="sayHelloFault" type="tns:faultResponseType"/>
+      <xsd:element name="checkAliveRequest" type="tns:checkAliveRequestType"/>
+      <xsd:element name="checkAliveResponse" type="tns:checkAliveResponseType"/>
+      <!--types-->
+      <xsd:complexType name="sayHelloRequestType">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" name="firstName" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="sayHelloResponseType">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" name="greeting" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="checkAliveRequestType">
+        <xsd:sequence/>
+      </xsd:complexType>
+      <xsd:complexType name="checkAliveResponseType">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" name="result" type="xsd:boolean"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="faultResponseType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="errorName" type="xsd:string"/>
+          <xsd:element minOccurs="1" name="errorMessage" type="xsd:string"/>
+          <xsd:element minOccurs="1" name="errorCode" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </types>
+  <!--MESSAGES-->
+  <!--sayHello-->
+  <message name="SayHelloRequest">
+    <part name="request" element="tns:sayHelloRequest"/>
+  </message>
+  <message name="SayHelloResponse">
+    <part name="response" element="tns:sayHelloResponse"/>
+  </message>
+  <message name="SayHelloFault">
+    <part name="fault" element="tns:sayHelloFault"/>
+  </message>
+  <!--checkAlive-->
+  <message name="CheckAliveRequest">
+    <part name="request" element="tns:checkAliveRequest"/>
+  </message>
+  <message name="CheckAliveResponse">
+    <part name="response" element="tns:checkAliveResponse"/>
+  </message>
+  <!--errorMessage-->
+  <!--PORT TYPE-->
+  <portType name="HelloSoapBindingType">
+    <operation name="sayHello">
+      <input message="tns:SayHelloRequest"/>
+      <output message="tns:SayHelloResponse"/>
+      <fault message="tns:SayHelloFault" name="sayHelloFault"/>
+    </operation>
+    <operation name="checkAlive">
+      <input message="tns:CheckAliveRequest"/>
+      <output message="tns:CheckAliveResponse"/>
+    </operation>
+  </portType>
+  <!--PORT-->
+  <binding name="HelloSoapBinding" type="tns:HelloSoapBindingType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="sayHello">
+      <soap:operation soapAction="http://www.examples.com/sayHello" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="sayHelloFault">
+        <soap:fault name="fault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="checkAlive">
+      <soap:operation soapAction="http://www.examples.com/checkAlive" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <!--SERVICE-->
+  <service name="HelloSoapService">
+    <documentation>WSDL File for HelloService</documentation>
+    <port binding="tns:HelloSoapBinding" name="HelloSoapPort">
+      <soap:address location="http://www.examples.com/sayHello/"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://AG-00226.local:8088/mockHello_Binding</con:endpoint><con:endpoint>http://localhost:8080/soap/sayHello</con:endpoint><con:endpoint>http://localhost:8088/mockHello_Binding</con:endpoint><con:endpoint>http://www.examples.com/SayHello/</con:endpoint><con:endpoint>http://www.examples.com/sayHello/</con:endpoint></con:endpoints><con:operation id="07b9f6b1-a64b-43f5-8775-d45f35ec5b63" isOneWay="false" action="http://www.examples.com/sayHello" name="sayHello" bindingOperationName="sayHello" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="463a9e10-d0a2-4d01-8e48-62cb6d7b879b" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap/sayHello/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:exam="http://www.examples.com" xmlns:tns="http://www.examples.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <exam:sayHelloRequest>
+         <firstName>Matthias</firstName>
+      </exam:sayHelloRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.examples.com/sayHello"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="ba048f79-1cec-436e-b5f5-1a61b9664994" isOneWay="false" action="http://www.examples.com/checkAlive" name="checkAlive" bindingOperationName="checkAlive" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a9ea84ef-3def-4523-8dc7-8b58105206d3" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap/sayHello/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:exam="http://www.examples.com">
+   <soapenv:Header/>
+   <soapenv:Body><exam:checkAliveRequest/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.examples.com/checkAlive"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:RestService" id="074f99da-42b4-4efd-bb56-9c114ce27e36" wadlVersion="http://wadl.dev.java.net/2009/02" name="http://localhost:8080" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart=""/><con:endpoints><con:endpoint>http://AG-00226.local:8089/</con:endpoint><con:endpoint>http://localhost:8080</con:endpoint></con:endpoints><con:resource name="SayHello" path="/rest/sayHello" id="2567270e-322e-4400-a889-a20b43512ed7"><con:settings/><con:parameters/><con:method name="SayHello 1" id="22b37406-365d-4862-a6ff-acec50fae7b7" method="POST"><con:settings/><con:parameters/><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/></con:representation><con:representation type="FAULT"><con:mediaType>text/html;charset=UTF-8</con:mediaType><con:status>400</con:status><con:params/><con:element>html</con:element></con:representation><con:representation type="FAULT"><con:mediaType xsi:nil="true"/><con:status>500</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="Request 1" id="e3bce1d3-afff-4fbd-adc8-e0380b7f3049" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>{"firstname":"World"}</con:request><con:originalUri>http://localhost/rest/sayHello</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:interface><con:restMockService id="72326e59-dac4-474b-a73f-921ad37fe5e1" port="8089" path="/rest/sayHello" host="localhost" name="Hello_Rest_MockService" docroot=""><con:settings/><con:properties/><con:restMockAction name="/rest/sayHello" method="POST" resourcePath="/rest/sayHello" id="45e52761-60f3-4c53-84e0-e9564bb7b098"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:dispatchPath>/*&#13;
+// Script dispatcher is used to select a response based on the incoming request.&#13;
+// Here are few examples showing how to match based on path, query param, header and body&#13;
+&#13;
+// Match based on path&#13;
+def requestPath = mockRequest.getPath()&#13;
+log.info "Path: "+ requestPath&#13;
+&#13;
+if( requestPath.contains("json") )&#13;
+{&#13;
+    // return the name of the response you want to dispatch&#13;
+    return "JSON Response"&#13;
+}&#13;
+&#13;
+&#13;
+// Match based on query parameter&#13;
+def queryString = mockRequest.getRequest().getQueryString()&#13;
+log.info "QueryString: " + queryString&#13;
+&#13;
+if( queryString.contains("stockholm") )&#13;
+{&#13;
+    // return the name of the response you want to dispatch&#13;
+    return "Response Stockholm"&#13;
+}&#13;
+else if( queryString.contains("london") )&#13;
+{&#13;
+    // return the name of the response you want to dispatch&#13;
+    return "Response London"&#13;
+}&#13;
+&#13;
+&#13;
+// Match based on header&#13;
+def acceptEncodingHeaderList = mockRequest.getRequestHeaders().get("Accept-Encoding")&#13;
+log.info "AcceptEncoding Header List: " + acceptEncodingHeaderList&#13;
+&#13;
+if( acceptEncodingHeaderList.contains("gzip,deflate") )&#13;
+{&#13;
+    // return the name of the response you want to dispatch&#13;
+    return "GZiped Response"&#13;
+}&#13;
+&#13;
+&#13;
+// Match based on body&#13;
+def requestBody = mockRequest.getRequestContent()&#13;
+log.info "Request body: " + requestBody&#13;
+&#13;
+if( requestBody.contains("some data") )&#13;
+{&#13;
+    // return the name of the response you want to dispatch&#13;
+    return "Response N"&#13;
+}&#13;
+*/&#13;
+</con:dispatchPath><con:response name="Response 1" id="fc8641c8-4027-4098-9698-74a7a34a0345" httpResponseStatus="200"><con:settings/><con:responseContent/></con:response></con:restMockAction></con:restMockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

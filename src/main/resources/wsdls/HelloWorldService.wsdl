@@ -1,0 +1,113 @@
+<definitions name="HelloService" targetNamespace="http://www.examples.com" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.examples.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <!-- SCHEMAS -->
+    <types>
+        <xsd:schema xmlns:tns="http://www.examples.com" targetNamespace="http://www.examples.com">
+            <!-- elements -->
+            <xsd:element name="sayHelloRequest" type="tns:sayHelloRequestType" />
+            <xsd:element name="sayHelloResponse" type="tns:sayHelloResponseType" />
+            <xsd:element name="sayHelloFault" type="tns:faultResponseType" />
+            <xsd:element name="checkAliveRequest" type="tns:checkAliveRequestType" />
+            <xsd:element name="checkAliveResponse" type="tns:checkAliveResponseType" />
+            <!-- types -->
+            <xsd:complexType name="sayHelloRequestType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="firstName" type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="sayHelloResponseType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="greeting" type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="checkAliveRequestType">
+                <xsd:sequence />
+            </xsd:complexType>
+            <xsd:complexType name="checkAliveResponseType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="1" name="result" type="xsd:boolean" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="faultResponseType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="errorName" type="xsd:string" />
+                    <xsd:element minOccurs="1" name="errorMessage" type="xsd:string" />
+                    <xsd:element minOccurs="1" name="errorCode" type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+
+    <!-- MESSAGES -->
+    <!-- sayHello -->
+    <message name="SayHelloRequest">
+        <part name="request" element="tns:sayHelloRequest" />
+    </message>
+
+    <message name="SayHelloResponse">
+        <part name="response" element="tns:sayHelloResponse" />
+    </message>
+
+    <message name="SayHelloFault">
+        <part name="fault" element="tns:sayHelloFault" />
+    </message>
+
+
+    <!-- checkAlive -->
+    <message name="CheckAliveRequest">
+        <part name="request" element="tns:checkAliveRequest" />
+    </message>
+
+    <message name="CheckAliveResponse">
+        <part name="response" element="tns:checkAliveResponse" />
+    </message>
+    <!-- errorMessage -->
+
+
+    <!-- PORT TYPE -->
+    <portType name="HelloSoapBindingType">
+        <operation name="sayHello">
+            <input message="tns:SayHelloRequest" />
+            <output message="tns:SayHelloResponse" />
+            <fault message="tns:SayHelloFault" name="sayHelloFault" />
+        </operation>
+        <operation name="checkAlive">
+            <input message="tns:CheckAliveRequest" />
+            <output message="tns:CheckAliveResponse" />
+        </operation>
+    </portType>
+
+    <!-- PORT -->
+    <binding name="HelloSoapBinding" type="tns:HelloSoapBindingType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="sayHello">
+            <soap:operation soapAction="http://www.examples.com/sayHello" style="document" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+            <fault name="sayHelloFault">
+                <soap:fault name="fault" use="literal" />
+            </fault>
+        </operation>
+        <operation name="checkAlive">
+            <soap:operation soapAction="http://www.examples.com/checkAlive" style="document" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+    </binding>
+
+    <!-- SERVICE -->
+    <service name="HelloSoapService">
+        <documentation>WSDL File for HelloService</documentation>
+        <port binding="tns:HelloSoapBinding" name="HelloSoapPort">
+            <soap:address location="http://www.examples.com/sayHello/" />
+        </port>
+    </service>
+</definitions>
